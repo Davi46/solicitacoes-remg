@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Enum.StatusEnum;
+import Model.Enum.TipoSolicitacaoEnum;
 import lombok.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -15,7 +17,6 @@ public class Solicitacao {
     private StatusEnum statusEnum;
     private OffsetDateTime criacao;
     private OffsetDateTime finalizado;
-    private Solicitante solicitante;
     private String observacao;
     private String justificativa;
 }

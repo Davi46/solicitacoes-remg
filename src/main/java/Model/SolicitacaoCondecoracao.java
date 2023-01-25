@@ -10,4 +10,5 @@ import lombok.*;
 public class SolicitacaoCondecoracao extends Solicitacao{
     private Agraciado agraciado;
     private Condecoracao distintivo;
+    private Solicitante solicitante;
 }

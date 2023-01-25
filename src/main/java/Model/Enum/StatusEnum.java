@@ -1,4 +1,4 @@
-package Model;
+package Model.Enum;
 
 public enum StatusEnum {
     RECEBIDA(1),

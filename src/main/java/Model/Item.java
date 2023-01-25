@@ -12,4 +12,5 @@ import java.util.UUID;
 public class Item {
     private UUID identificador;
     private String nome;
+    private boolean status;
 }

@@ -8,4 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Condecoracao extends Item{
+
 }

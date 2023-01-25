@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Enum.LinhaFormacaoEnum;
+import Model.Enum.NivelFormacaoEnum;
 import lombok.*;
 
 @Getter
@@ -8,5 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AssessorPessoalFormacao extends Membro{
-    private 
+    private LinhaFormacaoEnum linhaFormacao;
+    private NivelFormacaoEnum nivelFormacao;
+    private String telefone;
+    private String celular;
 }
