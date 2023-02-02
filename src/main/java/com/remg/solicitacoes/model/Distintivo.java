@@ -13,7 +13,7 @@ public class Distintivo extends Item{
     }
 
     @Builder
-    public Distintivo(UUID identificador, String nome, boolean status) {
+    public Distintivo(long identificador, String nome, boolean status) {
         super(identificador, nome, status);
     }
 }

@@ -3,7 +3,6 @@ package com.remg.solicitacoes.model;
 import com.remg.solicitacoes.model.Enum.StatusEnum;
 import com.remg.solicitacoes.model.Enum.TipoSolicitacaoEnum;
 import lombok.*;
-
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -14,11 +13,22 @@ import java.util.UUID;
 @NoArgsConstructor
 public class SolicitacaoCondecoracao extends Solicitacao{
     private Agraciado agraciado;
-    private Condecoracao distintivo;
+    private Condecoracao condecoracao;
     private Solicitante solicitante;
+    private boolean estojo;
 
     @Builder
     public SolicitacaoCondecoracao(UUID identificador, TipoSolicitacaoEnum tipoSolicitacaoEnum, StatusEnum statusEnum, OffsetDateTime criacao, OffsetDateTime finalizado, String observacao, String justificativa) {
         super(identificador, tipoSolicitacaoEnum, statusEnum, criacao, finalizado, observacao, justificativa);
+    }
+
+    @Override
+    public String toString() {
+        return "SolicitacaoCondecoracao{" +
+                "agraciado=" + agraciado +
+                ", condecoracao=" + condecoracao +
+                ", solicitante=" + solicitante +
+                ", estojo=" + estojo +
+                '}';
     }
 }

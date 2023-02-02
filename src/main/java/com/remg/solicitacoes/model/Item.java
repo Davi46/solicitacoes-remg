@@ -9,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-    private UUID identificador;
+    private long identificador;
     private String nome;
     private boolean status;
 }

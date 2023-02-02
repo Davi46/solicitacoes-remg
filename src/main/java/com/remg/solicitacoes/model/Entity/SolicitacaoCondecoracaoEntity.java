@@ -31,4 +31,7 @@ public class SolicitacaoCondecoracaoEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "identificadorSolicitacao")
     private SolicitacaoEntity solicitacao;
+
+    @Column(nullable=false)
+    private boolean estojo;
 }

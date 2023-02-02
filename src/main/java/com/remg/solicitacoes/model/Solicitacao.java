@@ -18,4 +18,17 @@ public class Solicitacao {
     private OffsetDateTime finalizado;
     private String observacao;
     private String justificativa;
+
+    @Override
+    public String toString() {
+        return "Solicitacao{" +
+                "identificador=" + identificador +
+                ", tipoSolicitacaoEnum=" + tipoSolicitacaoEnum +
+                ", statusEnum=" + statusEnum +
+                ", criacao=" + criacao +
+                ", finalizado=" + finalizado +
+                ", observacao='" + observacao + '\'' +
+                ", justificativa='" + justificativa + '\'' +
+                '}';
+    }
 }

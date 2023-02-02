@@ -2,8 +2,6 @@ package com.remg.solicitacoes.model;
 
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @Builder
@@ -13,7 +11,7 @@ public class Condecoracao extends Item{
     }
 
     @Builder
-    public Condecoracao(UUID identificador, String nome, boolean status) {
+    public Condecoracao(long identificador, String nome, boolean status) {
         super(identificador, nome, status);
     }
 }
