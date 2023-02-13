@@ -1,37 +1,35 @@
 package com.regiaoescoteira.solicitacoes.model.entity;
 
-import javax.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "solicitacaoDistintivo")
-public class SolicitacaoDistintivoEntity {
+@Setter
+@Getter
+@Table(name = "StatusSolicitacao")
+public class StatusSolicitacaoEntity {
     @Id
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID identificador;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "identificadorAgraciado")
-    private AgraciadoEntity agraciado;
+    @Column(nullable=true)
+    private String observacao;
+
+    @Column(nullable=false)
+    private OffsetDateTime criacao;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "identificadorDistintivo")
-    private DistintivoEntity distintivo;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "identificadorSolicitante")
-    private SolicitanteEntity solicitante;
+    @JoinColumn(name = "identificadorTipoStatus")
+    private StatusEntity status;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
     @JoinColumn(name = "identificadorSolicitacao")

@@ -1,11 +1,11 @@
 package com.regiaoescoteira.solicitacoes.validation;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.util.ObjectUtils;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintValidator;
-
-import org.apache.commons.beanutils.Bean
-
 
 public class ConditionalValidator implements ConstraintValidator<ConditionalValidation, Object>{
     private String conditionalProperty;
@@ -38,7 +38,7 @@ public class ConditionalValidator implements ConstraintValidator<ConditionalVali
         boolean isValid = true;
         for (String property : requiredProperties) {
             Object requiredValue = BeanUtils.getProperty(object, property);
-            boolean isPresent = requiredValue != null && !isEmpty(requiredValue);
+            boolean isPresent = requiredValue != null && !ObjectUtils.isEmpty(requiredValue);
             if (!isPresent) {
                 isValid = false;
                 context.disableDefaultConstraintViolation();

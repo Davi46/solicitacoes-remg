@@ -1,6 +1,8 @@
 package com.regiaoescoteira.solicitacoes.model.entity;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -12,7 +14,9 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class MembroBaseEntity {
     @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "UUID")
+    @Type(type = "uuid-char")
     private UUID identificador;
 
     @Column(unique=true, nullable=false)
@@ -23,11 +27,5 @@ public abstract class MembroBaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "identificadorGrupoEscoteiro")
-    private GrupoEscoteiroEntity grupoEscoteiro;
-
-    @Column(nullable=false, length = 20)
-    private String telefone;
-
-    @Column(nullable=false, length = 20)
-    private String celular;
+    private GrupoEscoteiroEntity grupoEscoteiro; 
 }

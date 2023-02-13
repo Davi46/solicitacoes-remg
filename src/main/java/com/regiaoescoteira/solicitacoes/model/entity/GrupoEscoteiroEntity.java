@@ -1,7 +1,9 @@
 package com.regiaoescoteira.solicitacoes.model.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -14,7 +16,9 @@ import java.util.UUID;
 @Table(name = "GrupoEscoteiro")
 public class GrupoEscoteiroEntity {
     @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "UUID")
+    @Type(type = "uuid-char")
     private UUID identificador;
 
     @Column(unique=true, nullable=false)

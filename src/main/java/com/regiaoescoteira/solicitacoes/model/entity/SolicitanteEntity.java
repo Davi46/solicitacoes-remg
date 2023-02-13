@@ -12,4 +12,10 @@ import lombok.*;
 public class SolicitanteEntity extends MembroBaseEntity{
     @Column(nullable=false, length = 255)
     private String funcao;
+
+    @Column(length = 20)
+    private String telefone;
+
+    @Column(nullable=false, length = 20)
+    private String celular;
 }

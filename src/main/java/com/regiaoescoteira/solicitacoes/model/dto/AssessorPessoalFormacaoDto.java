@@ -2,7 +2,6 @@ package com.regiaoescoteira.solicitacoes.model.dto;
 
 import com.regiaoescoteira.solicitacoes.model.dto.enums.LinhaFormacaoDtoEnum;
 import com.regiaoescoteira.solicitacoes.model.dto.enums.NivelFormacaoDtoEnum;
-import com.remg.solicitacoes.model.dto.enums.*;
 import lombok.*;
 
 @Getter

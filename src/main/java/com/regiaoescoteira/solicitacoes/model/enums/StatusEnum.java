@@ -11,13 +11,13 @@ public enum StatusEnum {
     ENVIADO_AO_ESCRITORIO_NACIONAL(8),
     ENVIADO_AO_SOLICITANTE(9);
 
-    private int value;
+    private long value;
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
-    StatusEnum(int value) {
+    StatusEnum(long value) {
         this.value = value;
     }
 }

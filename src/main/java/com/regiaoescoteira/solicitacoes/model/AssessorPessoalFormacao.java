@@ -2,7 +2,6 @@ package com.regiaoescoteira.solicitacoes.model;
 
 import com.regiaoescoteira.solicitacoes.model.enums.LinhaFormacaoEnum;
 import com.regiaoescoteira.solicitacoes.model.enums.NivelFormacaoEnum;
-import com.remg.solicitacoes.model.enums.*;
 import lombok.*;
 
 @Getter

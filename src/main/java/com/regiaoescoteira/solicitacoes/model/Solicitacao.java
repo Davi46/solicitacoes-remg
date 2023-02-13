@@ -2,7 +2,6 @@ package com.regiaoescoteira.solicitacoes.model;
 
 import com.regiaoescoteira.solicitacoes.model.enums.StatusEnum;
 import com.regiaoescoteira.solicitacoes.model.enums.TipoSolicitacaoEnum;
-import com.remg.solicitacoes.model.enums.*;
 import lombok.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
