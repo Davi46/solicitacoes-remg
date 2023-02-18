@@ -16,10 +16,8 @@ import java.util.UUID;
 @Table(name = "StatusSolicitacao")
 public class StatusSolicitacaoEntity {
     @Id
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @GeneratedValue(generator = "UUID")
-    @Type(type = "uuid-char")
-    private UUID identificador;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long identificador;
 
     @Column(nullable=true)
     private String observacao;
@@ -27,11 +25,11 @@ public class StatusSolicitacaoEntity {
     @Column(nullable=false)
     private OffsetDateTime criacao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorTipoStatus")
     private StatusEntity status;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorSolicitacao")
     private SolicitacaoEntity solicitacao;
 }

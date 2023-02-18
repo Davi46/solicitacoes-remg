@@ -16,24 +16,22 @@ import java.util.UUID;
 @Table(name = "SolicitacaoCondecoracao")
 public class SolicitacaoCondecoracaoEntity {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Type(type = "uuid-char")
-    private UUID identificador;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long identificador;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorAgraciado")
     private AgraciadoEntity agraciado;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorCondecoracao")
     private CondecoracaoEntity condecoracao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorSolicitante")
     private SolicitanteEntity solicitante;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorSolicitacao")
     private SolicitacaoEntity solicitacao;
 

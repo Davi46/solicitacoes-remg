@@ -16,7 +16,7 @@ public class SolicitacaoDistintivo extends Solicitacao {
     private Solicitante solicitante;
 
     @Builder
-    public SolicitacaoDistintivo(UUID identificador, TipoSolicitacaoEnum tipoSolicitacaoEnum, StatusEnum statusEnum, OffsetDateTime criacao, OffsetDateTime finalizado, String observacao, String justificativa) {
-        super(identificador, tipoSolicitacaoEnum, statusEnum, criacao, finalizado, observacao, justificativa);
+    public SolicitacaoDistintivo(long identificador, UUID identificadorSolicitacao, TipoSolicitacaoEnum tipoSolicitacaoEnum, StatusEnum statusEnum, OffsetDateTime criacao, OffsetDateTime finalizado, String observacao, String justificativa) {
+        super(identificador, identificadorSolicitacao, tipoSolicitacaoEnum, statusEnum, criacao, finalizado, observacao, justificativa);
     }
 }

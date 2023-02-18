@@ -17,24 +17,21 @@ import java.util.UUID;
 @Table(name = "SolicitacaoNivel")
 public class SolicitacaoNivelEntity {
     @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @GeneratedValue(generator = "UUID")
-    @ColumnDefault("random_uuid()")
-    @Type(type = "uuid-char")
-    private UUID identificador;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long identificador;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorAssessorPessoalFormacao")
     private AssessorPessoalFormacaoEntity assessorPessoalFormacao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorNivelFormacaoSolicitado")
     private NivelFormacaoEntity nivelFormacaoSolicitado;
 
     @Column(nullable=false)
     private File arquivoSolicitacao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorSolicitacao")
     private SolicitacaoEntity solicitacao;
 }

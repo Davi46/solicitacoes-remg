@@ -11,7 +11,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Solicitacao {
-    private UUID identificador;
+    private long identificador;
+    private UUID identificadorSolicitacao;
     private TipoSolicitacaoEnum tipoSolicitacaoEnum;
     private StatusEnum statusEnum;
     private OffsetDateTime criacao;
@@ -23,6 +24,7 @@ public class Solicitacao {
     public String toString() {
         return "Solicitacao{" +
                 "identificador=" + identificador +
+                ", identificadorSolicitacao=" + identificadorSolicitacao +
                 ", tipoSolicitacaoEnum=" + tipoSolicitacaoEnum +
                 ", statusEnum=" + statusEnum +
                 ", criacao=" + criacao +

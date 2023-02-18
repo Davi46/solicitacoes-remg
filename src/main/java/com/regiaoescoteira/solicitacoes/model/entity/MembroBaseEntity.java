@@ -14,10 +14,8 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class MembroBaseEntity {
     @Id
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @GeneratedValue(generator = "UUID")
-    @Type(type = "uuid-char")
-    private UUID identificador;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long identificador;
 
     @Column(unique=true, nullable=false)
     private long  registro;

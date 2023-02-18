@@ -17,12 +17,14 @@ import java.util.UUID;
 @Table(name = "Solicitacao")
 public class SolicitacaoEntity {
     @Id
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @GeneratedValue(generator = "UUID")
-    @Type(type = "uuid-char")
-    private UUID identificador;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long identificador;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @Column(unique = true)
+    @Type(type = "uuid-char")
+    private UUID identificadorSolicitacao;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorTipoSolicitacao")
     private TipoSolicitacaoEntity tipoSolicitacao;
 

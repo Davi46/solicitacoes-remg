@@ -9,6 +9,7 @@ import com.regiaoescoteira.solicitacoes.model.entity.StatusSolicitacaoEntity;
 import com.regiaoescoteira.solicitacoes.model.enums.StatusEnum;
 import com.regiaoescoteira.solicitacoes.service.SolicitacaoCondecoracaoService;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,9 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
     private StatusSolicitacaoRepository statusSolicitacaoRepository;
 
     @Autowired
+    private SolicitacaoRepository solicitacaoRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -57,8 +61,8 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         log.info(solicitacaoCondecoracao.toString());
 
         var entity = solicitacaoCondecoracaoToEntity(solicitacaoCondecoracao);
-        entity.setIdentificador(UUID.randomUUID());
         entity.getSolicitacao().setTipoSolicitacao(tipoSolicitacaoRepository.getReferenceById(3L));
+        entity.getSolicitacao().setIdentificadorSolicitacao(UUID.randomUUID());
         entity.setCondecoracao(condecoracaoRepository.getReferenceById(solicitacaoCondecoracao.getCondecoracao().getIdentificador()));
         entity.getAgraciado().setGrupoEscoteiro(grupoEscoteiroRepository.getByNumeroGrupo(solicitacaoCondecoracao.getAgraciado().getGrupoEscoteiro().getNumeroGrupo()));
         entity.getSolicitante().setGrupoEscoteiro(grupoEscoteiroRepository.getByNumeroGrupo(solicitacaoCondecoracao.getSolicitante().getGrupoEscoteiro().getNumeroGrupo()));
@@ -66,10 +70,11 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         entity.setAgraciado(salvarAgraciado(entity.getAgraciado()));
         entity.setSolicitante(salvarSolicitante(entity.getSolicitante()));
         var retorno = solicitacaoCondecoracaoRepository.save(entity);
-        //salvarStatusSolicitacao(retorno);
+        salvarStatusSolicitacao(entity);
         log.info("Objeto Salvo com Sucesso. Identificador: ");
         log.info(retorno.getIdentificador().toString());
-        return retorno.getIdentificador();
+        return retorno.getSolicitacao().getIdentificadorSolicitacao();
+
     }
 
     private AgraciadoEntity salvarAgraciado(AgraciadoEntity agraciado) {
@@ -92,7 +97,6 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
 
     private void salvarStatusSolicitacao(SolicitacaoCondecoracaoEntity solicitacao) {
         var statusSolicitacao = new StatusSolicitacaoEntity();
-        statusSolicitacao.setIdentificador(UUID.randomUUID());
         statusSolicitacao.setCriacao(OffsetDateTime.now());
         statusSolicitacao.setStatus(statusRepository.getReferenceById(StatusEnum.RECEBIDA.getValue()));
         statusSolicitacao.setSolicitacao(solicitacao.getSolicitacao());
@@ -102,7 +106,6 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
     private Collection<StatusSolicitacaoEntity> getStatusSolicitacao() {
         var statusSolicitacao= new ArrayList<StatusSolicitacaoEntity>();
         var status = new StatusSolicitacaoEntity();
-        status.setIdentificador(UUID.randomUUID());
         status.setCriacao(OffsetDateTime.now());
         status.setStatus(statusRepository.getReferenceById(StatusEnum.RECEBIDA.getValue()));
 

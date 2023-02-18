@@ -10,11 +10,11 @@ import lombok.*;
 @Entity
 @Table(name = "AssessorPessoalFormacao")
 public class AssessorPessoalFormacaoEntity extends MembroBaseEntity{
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorLinhaFormacao")
     private LinhaFormacaoEntity linhaFormacao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "identificadorNivelFormacao")
     private NivelFormacaoEntity nivelFormacao;
 
