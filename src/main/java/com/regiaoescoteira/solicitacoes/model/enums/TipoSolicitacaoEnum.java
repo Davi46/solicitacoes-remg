@@ -6,13 +6,13 @@ public enum TipoSolicitacaoEnum {
     CONDECORACOES(3),
     NIVEL_FORMACAO(4);
 
-    private int value;
+    private long value;
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
-    TipoSolicitacaoEnum(int value) {
+    TipoSolicitacaoEnum(long value) {
         this.value = value;
     }
 }

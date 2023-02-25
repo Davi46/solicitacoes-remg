@@ -9,13 +9,15 @@ import com.regiaoescoteira.solicitacoes.model.entity.StatusSolicitacaoEntity;
 import com.regiaoescoteira.solicitacoes.model.enums.StatusEnum;
 import com.regiaoescoteira.solicitacoes.service.SolicitacaoCondecoracaoService;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,9 +25,6 @@ import java.util.UUID;
 public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecoracaoService {
     @Autowired
     private SolicitacaoCondecoracaoRepository solicitacaoCondecoracaoRepository;
-
-    @Autowired
-    private StatusRepository statusRepository ;
 
     @Autowired
     private TipoSolicitacaoRepository tipoSolicitacaoRepository;
@@ -49,10 +48,14 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
     private SolicitacaoRepository solicitacaoRepository;
 
     @Autowired
+    private StatusRepository statusRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public UUID solicitarCondecoracao(SolicitacaoCondecoracao solicitacaoCondecoracao) {
+    @Transactional(rollbackOn = Exception.class)
+    public UUID solicitarCondecoracao(SolicitacaoCondecoracao solicitacaoCondecoracao){
         if(solicitacaoCondecoracao == null){
             log.error("Objeto informado é igual a null");
             throw new IllegalArgumentException("Objeto informado não pode ser nulo");
@@ -61,7 +64,7 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         log.info(solicitacaoCondecoracao.toString());
 
         var entity = solicitacaoCondecoracaoToEntity(solicitacaoCondecoracao);
-        entity.getSolicitacao().setTipoSolicitacao(tipoSolicitacaoRepository.getReferenceById(3L));
+        entity.getSolicitacao().setTipoSolicitacao(tipoSolicitacaoRepository.getReferenceById(solicitacaoCondecoracao.getTipoSolicitacaoEnum().getValue()));
         entity.getSolicitacao().setIdentificadorSolicitacao(UUID.randomUUID());
         entity.setCondecoracao(condecoracaoRepository.getReferenceById(solicitacaoCondecoracao.getCondecoracao().getIdentificador()));
         entity.getAgraciado().setGrupoEscoteiro(grupoEscoteiroRepository.getByNumeroGrupo(solicitacaoCondecoracao.getAgraciado().getGrupoEscoteiro().getNumeroGrupo()));
@@ -70,11 +73,19 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         entity.setAgraciado(salvarAgraciado(entity.getAgraciado()));
         entity.setSolicitante(salvarSolicitante(entity.getSolicitante()));
         var retorno = solicitacaoCondecoracaoRepository.save(entity);
-        salvarStatusSolicitacao(entity);
+        salvarStatusSolicitacao(retorno);
         log.info("Objeto Salvo com Sucesso. Identificador: ");
         log.info(retorno.getIdentificador().toString());
         return retorno.getSolicitacao().getIdentificadorSolicitacao();
 
+    }
+
+    @Override
+    public List<SolicitacaoCondecoracao> buscarTodasSolicitacoes() {
+         var solicitacoesEntity = solicitacaoCondecoracaoRepository.findAll();
+         var solicitacoes = new ArrayList<SolicitacaoCondecoracao>();
+         solicitacoesEntity.forEach(p -> solicitacoes.add(solicitacaoCondecoracaoToModel(p)));
+         return solicitacoes;
     }
 
     private AgraciadoEntity salvarAgraciado(AgraciadoEntity agraciado) {
@@ -95,10 +106,10 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         return solicitanteConsulta;
     }
 
-    private void salvarStatusSolicitacao(SolicitacaoCondecoracaoEntity solicitacao) {
+    private void salvarStatusSolicitacao(SolicitacaoCondecoracaoEntity solicitacao){
         var statusSolicitacao = new StatusSolicitacaoEntity();
         statusSolicitacao.setCriacao(OffsetDateTime.now());
-        statusSolicitacao.setStatus(statusRepository.getReferenceById(StatusEnum.RECEBIDA.getValue()));
+        statusSolicitacao.setStatus(statusRepository.getById(StatusEnum.RECEBIDA.getValue()));
         statusSolicitacao.setSolicitacao(solicitacao.getSolicitacao());
         statusSolicitacaoRepository.save(statusSolicitacao);
     }
@@ -107,7 +118,7 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         var statusSolicitacao= new ArrayList<StatusSolicitacaoEntity>();
         var status = new StatusSolicitacaoEntity();
         status.setCriacao(OffsetDateTime.now());
-        status.setStatus(statusRepository.getReferenceById(StatusEnum.RECEBIDA.getValue()));
+        //status.setStatus(statusRepository.getReferenceById(StatusEnum.RECEBIDA.getValue()));
 
         statusSolicitacao.add(status);
         return statusSolicitacao;
@@ -117,5 +128,7 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         return modelMapper.map(solicitacaoCondecoracao, SolicitacaoCondecoracaoEntity.class);
     }
 
-
+    private SolicitacaoCondecoracao solicitacaoCondecoracaoToModel(SolicitacaoCondecoracaoEntity solicitacaoCondecoracaoEntity) {
+        return modelMapper.map(solicitacaoCondecoracaoEntity, SolicitacaoCondecoracao.class);
+    }
 }

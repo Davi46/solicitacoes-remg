@@ -1,7 +1,9 @@
 package com.regiaoescoteira.solicitacoes.service;
 
 import com.regiaoescoteira.solicitacoes.model.SolicitacaoCondecoracao;
+import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface SolicitacaoCondecoracaoService {
@@ -11,4 +13,10 @@ public interface SolicitacaoCondecoracaoService {
     * @return o identificador da solicitação criada
     * */
     public UUID solicitarCondecoracao(SolicitacaoCondecoracao solicitacaoCondecoracao);
+
+    /*
+     * Método utilizado para buscar todas as solicitações de condecorações.
+     * @return todas as solicitações de condecorações.
+     * */
+    public List<SolicitacaoCondecoracao> buscarTodasSolicitacoes();
 }

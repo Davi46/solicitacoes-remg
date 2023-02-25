@@ -3,13 +3,12 @@ package com.regiaoescoteira.solicitacoes.model.entity;
 import lombok.*;
 import javax.persistence.*;
 
-@Entity
-@Setter
 @Getter
+@Setter
+@Entity
 @Table(name = "Status")
 public class StatusEntity extends ItemEntity{
-
-    public StatusEntity(){
+   public StatusEntity(){
         super();
     }
 }

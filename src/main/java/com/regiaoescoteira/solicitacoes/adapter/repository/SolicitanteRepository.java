@@ -9,4 +9,5 @@ import java.util.UUID;
 @Repository
 public interface SolicitanteRepository extends JpaRepository<SolicitanteEntity, UUID> {
     SolicitanteEntity getByRegistro(long registro);
+
 }

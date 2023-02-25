@@ -11,7 +11,7 @@ INSERT INTO [dbo].[tipo_solicitacao]
 	 (4, 'Nível Formação', 1)
 GO
 
-
+ 
 INSERT INTO [dbo].[status]
            ([identificador]
            ,[nome]
@@ -33,7 +33,7 @@ INSERT INTO [dbo].[grupo_escoteiro]
            ,[nome_grupo]
            ,[numero_grupo])
      VALUES
-           (newid(), 'Grupo Escoteiro Lagoa do Nado', '46')
+           (1, 'Grupo Escoteiro Lagoa do Nado', '46')
 GO
 
 

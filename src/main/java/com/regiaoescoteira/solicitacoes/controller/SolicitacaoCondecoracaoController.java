@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,13 +19,13 @@ public class SolicitacaoCondecoracaoController {
     private SolicitacaoCondecoracaoService solicitacaoCondecoracaoService;
 
     @PostMapping
-    public ResponseEntity<UUID> save(@RequestBody @Validated final SolicitacaoCondecoracao solicitacao){
+    public ResponseEntity<UUID> save(@RequestBody @Validated final SolicitacaoCondecoracao solicitacao) {
         var retorno = solicitacaoCondecoracaoService.solicitarCondecoracao(solicitacao);
         return ResponseEntity.ok(retorno);
     }
 
     @GetMapping
-    public  ResponseEntity<String> get(){
-        return ResponseEntity.ok("OK");
+    public  ResponseEntity<List<SolicitacaoCondecoracao>> getAllSolicitacoes(){
+        return ResponseEntity.ok(solicitacaoCondecoracaoService.buscarTodasSolicitacoes());
     }
 }
