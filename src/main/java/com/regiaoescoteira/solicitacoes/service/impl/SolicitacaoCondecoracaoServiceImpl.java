@@ -2,11 +2,13 @@ package com.regiaoescoteira.solicitacoes.service.impl;
 
 import com.regiaoescoteira.solicitacoes.adapter.repository.*;
 import com.regiaoescoteira.solicitacoes.model.SolicitacaoCondecoracao;
+import com.regiaoescoteira.solicitacoes.model.StatusSolicitacao;
 import com.regiaoescoteira.solicitacoes.model.entity.AgraciadoEntity;
 import com.regiaoescoteira.solicitacoes.model.entity.SolicitacaoCondecoracaoEntity;
 import com.regiaoescoteira.solicitacoes.model.entity.SolicitanteEntity;
 import com.regiaoescoteira.solicitacoes.model.entity.StatusSolicitacaoEntity;
 import com.regiaoescoteira.solicitacoes.model.enums.StatusEnum;
+import com.regiaoescoteira.solicitacoes.model.enums.TipoSolicitacaoEnum;
 import com.regiaoescoteira.solicitacoes.service.SolicitacaoCondecoracaoService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -88,6 +90,14 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
          return solicitacoes;
     }
 
+    @Override
+    public SolicitacaoCondecoracao buscarSolicitacao(UUID identificador) {
+        var solicitacao = solicitacaoRepository.getBySolicitacaoIdentificador(identificador);
+        var solicitacaoEntity = solicitacaoCondecoracaoRepository.getSolicitacaoCondecoracaoBySolicitacao(solicitacao);
+
+        return solicitacaoCondecoracaoToModel(solicitacaoEntity);
+    }
+
     private AgraciadoEntity salvarAgraciado(AgraciadoEntity agraciado) {
         var agraciadoConsulta = agraciadoRepository.getByRegistro(agraciado.getRegistro());
         if(agraciadoConsulta == null){
@@ -129,6 +139,23 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
     }
 
     private SolicitacaoCondecoracao solicitacaoCondecoracaoToModel(SolicitacaoCondecoracaoEntity solicitacaoCondecoracaoEntity) {
-        return modelMapper.map(solicitacaoCondecoracaoEntity, SolicitacaoCondecoracao.class);
+        var solicitacaoMap = modelMapper.map(solicitacaoCondecoracaoEntity, SolicitacaoCondecoracao.class);
+        solicitacaoMap.setCriacao(solicitacaoCondecoracaoEntity.getSolicitacao().getCriacao());
+        solicitacaoMap.setFinalizado(solicitacaoCondecoracaoEntity.getSolicitacao().getFinalizado());
+        solicitacaoMap.setTipoSolicitacaoEnum(TipoSolicitacaoEnum.CONDECORACOES);
+        solicitacaoMap.setJustificativa(solicitacaoCondecoracaoEntity.getSolicitacao().getJustificativa());
+        solicitacaoMap.setIdentificadorSolicitacao(solicitacaoCondecoracaoEntity.getSolicitacao().getIdentificadorSolicitacao());
+
+        var historico = statusSolicitacaoRepository.getStatusSolicitacoesBySolicitacao(solicitacaoCondecoracaoEntity.getSolicitacao());
+
+        solicitacaoMap.setHistoricoSolicitacao(new ArrayList<>());
+        historico.forEach(p -> solicitacaoMap.getHistoricoSolicitacao().add(statusSolicitacaoToModel(p)));
+        return solicitacaoMap;
+    }
+
+    private StatusSolicitacao statusSolicitacaoToModel(StatusSolicitacaoEntity statusSolicitacaoEntity) {
+        var statusSolicitacao = modelMapper.map(statusSolicitacaoEntity, StatusSolicitacao.class);
+        statusSolicitacao.setStatus(StatusEnum.getByCodigo(statusSolicitacaoEntity.getStatus().getIdentificador()));
+        return  statusSolicitacao;
     }
 }

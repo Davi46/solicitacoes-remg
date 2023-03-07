@@ -20,4 +20,13 @@ public enum StatusEnum {
     StatusEnum(long value) {
         this.value = value;
     }
+
+    public static StatusEnum getByCodigo(long cod) {
+        for (StatusEnum n : values()) {
+            if (n.getValue() == cod) {
+                return n;
+            }
+        }
+        throw new IllegalArgumentException("Status invalido: " + cod);
+    }
 }

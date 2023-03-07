@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -27,5 +26,10 @@ public class SolicitacaoCondecoracaoController {
     @GetMapping
     public  ResponseEntity<List<SolicitacaoCondecoracao>> getAllSolicitacoes(){
         return ResponseEntity.ok(solicitacaoCondecoracaoService.buscarTodasSolicitacoes());
+    }
+
+    @GetMapping(value = "/{identificador}")
+    public  ResponseEntity<SolicitacaoCondecoracao> getSolicitacao(@PathVariable UUID identificador){
+        return ResponseEntity.ok(solicitacaoCondecoracaoService.buscarSolicitacao(identificador));
     }
 }

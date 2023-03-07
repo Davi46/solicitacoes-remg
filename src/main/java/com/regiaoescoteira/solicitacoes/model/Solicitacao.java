@@ -1,9 +1,10 @@
 package com.regiaoescoteira.solicitacoes.model;
 
-import com.regiaoescoteira.solicitacoes.model.enums.StatusEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.regiaoescoteira.solicitacoes.model.enums.TipoSolicitacaoEnum;
 import lombok.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -14,11 +15,12 @@ public class Solicitacao {
     private long identificador;
     private UUID identificadorSolicitacao;
     private TipoSolicitacaoEnum tipoSolicitacaoEnum;
-    private StatusEnum statusEnum;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private OffsetDateTime criacao;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private OffsetDateTime finalizado;
-    private String observacao;
     private String justificativa;
+    private List<StatusSolicitacao> historicoSolicitacao;
 
     @Override
     public String toString() {
@@ -26,11 +28,10 @@ public class Solicitacao {
                 "identificador=" + identificador +
                 ", identificadorSolicitacao=" + identificadorSolicitacao +
                 ", tipoSolicitacaoEnum=" + tipoSolicitacaoEnum +
-                ", statusEnum=" + statusEnum +
                 ", criacao=" + criacao +
                 ", finalizado=" + finalizado +
-                ", observacao='" + observacao + '\'' +
                 ", justificativa='" + justificativa + '\'' +
+                ", historicoSolicitacao=" + historicoSolicitacao +
                 '}';
     }
 }

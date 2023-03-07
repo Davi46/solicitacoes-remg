@@ -19,4 +19,11 @@ public interface SolicitacaoCondecoracaoService {
      * @return todas as solicitações de condecorações.
      * */
     public List<SolicitacaoCondecoracao> buscarTodasSolicitacoes();
+
+    /*
+     * Método utilizado para buscar uma solicitações especifica.
+     * @param Identificador da solicitação
+     * @return Solicitação de condecoração encontrada
+     * */
+    public SolicitacaoCondecoracao buscarSolicitacao(UUID identificador);
 }
