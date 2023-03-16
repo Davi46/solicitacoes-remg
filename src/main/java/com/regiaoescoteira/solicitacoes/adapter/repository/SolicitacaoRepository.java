@@ -10,6 +10,5 @@ import java.util.UUID;
 @Repository
 public interface SolicitacaoRepository extends JpaRepository<SolicitacaoEntity, Long> {
 
-    @Query("select * from Solicitacao where identificadorSolicitacao = ?1")
-    SolicitacaoEntity getBySolicitacaoIdentificador(UUID identificadorSolicitacao);
+    SolicitacaoEntity getByIdentificadorSolicitacao(UUID identificadorSolicitacao);
 }

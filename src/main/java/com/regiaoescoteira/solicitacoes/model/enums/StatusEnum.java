@@ -1,4 +1,4 @@
-package com.regiaoescoteira.solicitacoes.model.enums;
+package com.regiaoescoteira.solicitacoes.model.enums; 
 
 public enum StatusEnum {
     RECEBIDA(1),

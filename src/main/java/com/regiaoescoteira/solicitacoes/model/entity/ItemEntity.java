@@ -15,6 +15,9 @@ public abstract class ItemEntity {
     @Column(unique=true, nullable=false, length = 255)
     private String nome;
 
+    @Column(nullable=false, length = 255)
+    private String descricao;
+
     @Column(nullable=false)
     private boolean status;
 }

@@ -27,7 +27,7 @@ public class Solicitacao {
         return "Solicitacao{" +
                 "identificador=" + identificador +
                 ", identificadorSolicitacao=" + identificadorSolicitacao +
-                ", tipoSolicitacaoEnum=" + tipoSolicitacaoEnum +
+                ", tipoSolicitacaoEnum=" + tipoSolicitacaoEnum.getValue() +
                 ", criacao=" + criacao +
                 ", finalizado=" + finalizado +
                 ", justificativa='" + justificativa + '\'' +

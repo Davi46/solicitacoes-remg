@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -92,7 +91,7 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
 
     @Override
     public SolicitacaoCondecoracao buscarSolicitacao(UUID identificador) {
-        var solicitacao = solicitacaoRepository.getBySolicitacaoIdentificador(identificador);
+        var solicitacao = solicitacaoRepository.getByIdentificadorSolicitacao(identificador);
         var solicitacaoEntity = solicitacaoCondecoracaoRepository.getSolicitacaoCondecoracaoBySolicitacao(solicitacao);
 
         return solicitacaoCondecoracaoToModel(solicitacaoEntity);
@@ -124,16 +123,6 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         statusSolicitacaoRepository.save(statusSolicitacao);
     }
 
-    private Collection<StatusSolicitacaoEntity> getStatusSolicitacao() {
-        var statusSolicitacao= new ArrayList<StatusSolicitacaoEntity>();
-        var status = new StatusSolicitacaoEntity();
-        status.setCriacao(OffsetDateTime.now());
-        //status.setStatus(statusRepository.getReferenceById(StatusEnum.RECEBIDA.getValue()));
-
-        statusSolicitacao.add(status);
-        return statusSolicitacao;
-    }
-
     private SolicitacaoCondecoracaoEntity solicitacaoCondecoracaoToEntity(SolicitacaoCondecoracao solicitacaoCondecoracao) {
         return modelMapper.map(solicitacaoCondecoracao, SolicitacaoCondecoracaoEntity.class);
     }
@@ -155,7 +144,7 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
 
     private StatusSolicitacao statusSolicitacaoToModel(StatusSolicitacaoEntity statusSolicitacaoEntity) {
         var statusSolicitacao = modelMapper.map(statusSolicitacaoEntity, StatusSolicitacao.class);
-        statusSolicitacao.setStatus(StatusEnum.getByCodigo(statusSolicitacaoEntity.getStatus().getIdentificador()));
+        statusSolicitacao.setStatusEnum(StatusEnum.getByCodigo(statusSolicitacaoEntity.getStatus().getIdentificador()));
         return  statusSolicitacao;
     }
 }

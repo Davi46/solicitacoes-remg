@@ -22,7 +22,7 @@ public class StatusSolicitacao {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private OffsetDateTime criacao;
 
-    private StatusEnum status;
+    private StatusEnum statusEnum;
 
     @Override
     public String toString() {
@@ -30,7 +30,7 @@ public class StatusSolicitacao {
                 "identificador=" + identificador +
                 ", observacao='" + observacao + '\'' +
                 ", criacao=" + criacao +
-                ", status=" + status +
+                ", status=" + statusEnum.getValue() +
                 '}';
     }
 }
