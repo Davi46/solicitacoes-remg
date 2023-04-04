@@ -11,7 +11,7 @@ public class Condecoracao extends Item {
     }
 
     @Builder
-    public Condecoracao(long identificador, String nome, boolean status) {
-        super(identificador, nome, status);
+    public Condecoracao(long identificador, String nome, boolean status, String descricao) {
+        super(identificador, nome, status, descricao);
     }
 }

@@ -11,7 +11,7 @@ public class Distintivo extends Item {
     }
 
     @Builder
-    public Distintivo(long identificador, String nome, boolean status) {
-        super(identificador, nome, status);
+    public Distintivo(long identificador, String nome, boolean status, String descricao) {
+        super(identificador, nome, status, descricao);
     }
 }

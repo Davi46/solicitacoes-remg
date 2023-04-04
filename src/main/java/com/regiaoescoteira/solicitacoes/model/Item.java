@@ -2,8 +2,6 @@ package com.regiaoescoteira.solicitacoes.model;
 
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,4 +10,5 @@ public class Item {
     private long identificador;
     private String nome;
     private boolean status;
+    private String descricao;
 }

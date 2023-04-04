@@ -1,7 +1,6 @@
 package com.regiaoescoteira.solicitacoes.exception;
 
 import com.regiaoescoteira.solicitacoes.exception.error.CoreError;
-import com.regiaoescoteira.solicitacoes.model.dto.CoreResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,7 @@ public abstract class CoreException extends Exception{
         super(message);
     }
 
-    public CoreResponseDto buildCoreResponseDto(){
+    /*public CoreResponseDto buildCoreResponseDto(){
         return new CoreResponseDto(this.type, this.getMessage(), this.errors);
-    }
+    }*/
 }

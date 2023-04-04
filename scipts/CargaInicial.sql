@@ -12,6 +12,15 @@ INSERT INTO [dbo].[tipo_solicitacao]
 	 (4, 'Nível Formação', 1, 'Nível de formação')
 GO
 
+INSERT INTO [dbo].[condecoracao]
+           ([identificador]
+           ,[nome]
+           ,[status],
+		   [descricao])
+     VALUES (1,'Diploma Mérito Regional', 1, 'teste')
+
+GO
+
  
 INSERT INTO [dbo].[status]
            ([identificador]
@@ -39,12 +48,5 @@ INSERT INTO [dbo].[grupo_escoteiro]
 GO
 
 
-INSERT INTO [dbo].[condecoracao]
-           ([identificador]
-           ,[nome]
-           ,[status],
-		   [descricao])
-     VALUES (1,'Diploma Mérito Regional', 1, 'teste')
 
-GO
  

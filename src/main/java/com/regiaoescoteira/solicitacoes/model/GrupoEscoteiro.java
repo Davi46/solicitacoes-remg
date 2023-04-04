@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GrupoEscoteiro {
+    private Long identificador;
     private int numeroGrupo;
     private String nomeGrupo;
 }

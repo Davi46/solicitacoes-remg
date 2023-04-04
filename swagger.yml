@@ -1,0 +1,313 @@
+swagger: '2.0'
+info:
+  description: '"Spring Boot REST API"'
+  version: 1.0.0
+  title: Spring Boot REST API
+  license:
+    name: Apache License Version 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0"
+host: localhost:8080
+tags:
+  - name: grupo-escoteiro-controller
+    description: Grupo Escoteiro Controller
+  - name: item-controller
+    description: Item Controller
+  - name: solicitacao-condecoracao-controller
+    description: Solicitacao Condecoracao Controller
+  - name: status-solicitacao-controller
+    description: Status Solicitacao Controller
+paths:
+  /solicitacoes/grupo-escoteiro:
+    get:
+      tags:
+        - grupo-escoteiro-controller
+      summary: Método utilizado para buscar todos os grupos escoteiros cadastrado
+      operationId: getAllGruposUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: Retorna a lista de grupos escoteiros cadastrados na Região Escoteira.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/GrupoEscoteiro'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /solicitacoes/item:
+    get:
+      tags:
+        - item-controller
+      summary: Método utilizado para buscar todos os itens cadastrado para o  tipo informado
+      operationId: getAllSolicitacoesUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: tipoItemEnum
+          in: query
+          description: tipoItemEnum
+          required: false
+          type: string
+          enum:
+            - STATUS
+            - TIPO_CONDECORACAO
+            - TIPO_SOLICITACAO
+      responses:
+        '200':
+          description: Todos os itens cadastrado para o tipo de item informado.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /solicitacoes/solicitacao-condecoracao:
+    get:
+      tags:
+        - solicitacao-condecoracao-controller
+      summary: Método utilizado para buscar todas as solicitações de condecorações.
+      operationId: getAllSolicitacoesUsingGET_1
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: Retorna todas as solicitações de condecorações.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SolicitacaoCondecoracao'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - solicitacao-condecoracao-controller
+      summary: ' Método utilizado para criar uma nova solicitação de condecoração.'
+      operationId: saveUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: solicitacao
+          description: solicitacao
+          required: true
+          schema:
+            $ref: '#/definitions/SolicitacaoCondecoracao'
+      responses:
+        '200':
+          description: Item criado e retorna o identificador da solicitação criada.
+          schema:
+            type: string
+            format: uuid
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /solicitacoes/solicitacao-condecoracao/{identificador}:
+    get:
+      tags:
+        - solicitacao-condecoracao-controller
+      summary: ' Método utilizado para buscar uma solicitações especifica.'
+      operationId: getSolicitacaoUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: identificador
+          in: path
+          description: identificador
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Solicitação de condecoração encontrada
+          schema:
+            $ref: '#/definitions/SolicitacaoCondecoracao'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /solicitacoes/status-solicitacao/{identificadorSolicitacao}:
+    post:
+      tags:
+        - status-solicitacao-controller
+      summary: Método utilizado para criar um novo Status numa Solicitação já existente.
+      operationId: saveUsingPOST_1
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: identificadorSolicitacao
+          in: path
+          description: identificadorSolicitacao
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: statusSolicitacao
+          description: statusSolicitacao
+          required: true
+          schema:
+            $ref: '#/definitions/StatusSolicitacao'
+      responses:
+        '200':
+          description: Item criado e retorna o identificador da solicitação criada.
+          schema:
+            type: integer
+            format: int64
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+definitions:
+  Agraciado:
+    type: object
+    properties:
+      grupoEscoteiro:
+        $ref: '#/definitions/GrupoEscoteiro'
+      nome:
+        type: string
+      registro:
+        type: integer
+        format: int32
+    title: Agraciado
+  Condecoracao:
+    type: object
+    properties:
+      descricao:
+        type: string
+      identificador:
+        type: integer
+        format: int64
+      nome:
+        type: string
+      status:
+        type: boolean
+    title: Condecoracao
+  GrupoEscoteiro:
+    type: object
+    properties:
+      identificador:
+        type: integer
+        format: int64
+      nomeGrupo:
+        type: string
+      numeroGrupo:
+        type: integer
+        format: int32
+    title: GrupoEscoteiro
+  Item:
+    type: object
+    properties:
+      descricao:
+        type: string
+      identificador:
+        type: integer
+        format: int64
+      nome:
+        type: string
+      status:
+        type: boolean
+    title: Item
+  SolicitacaoCondecoracao:
+    type: object
+    properties:
+      agraciado:
+        $ref: '#/definitions/Agraciado'
+      condecoracao:
+        $ref: '#/definitions/Condecoracao'
+      criacao:
+        type: string
+        example: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+      estojo:
+        type: boolean
+      finalizado:
+        type: string
+        example: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+      historicoSolicitacao:
+        type: array
+        items:
+          $ref: '#/definitions/StatusSolicitacao'
+      identificador:
+        type: integer
+        format: int64
+      identificadorSolicitacao:
+        type: string
+        format: uuid
+      justificativa:
+        type: string
+      solicitante:
+        $ref: '#/definitions/Solicitante'
+      tipoSolicitacaoEnum:
+        type: string
+        enum:
+          - CONDECORACOES
+          - DISTINTIVO_ESPECIAL
+          - NIVEL_FORMACAO
+          - SEMEADOR
+    title: SolicitacaoCondecoracao
+  Solicitante:
+    type: object
+    properties:
+      celular:
+        type: string
+      funcao:
+        type: string
+      grupoEscoteiro:
+        $ref: '#/definitions/GrupoEscoteiro'
+      nome:
+        type: string
+      registro:
+        type: integer
+        format: int32
+      telefone:
+        type: string
+    title: Solicitante
+  StatusSolicitacao:
+    type: object
+    properties:
+      criacao:
+        type: string
+        example: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+      identificador:
+        type: integer
+        format: int64
+      observacao:
+        type: string
+      statusEnum:
+        type: string
+        enum:
+          - AGUARDANDO_ALTERACOES_SOLICITADAS
+          - APROVADO_AGUARDANDO_PAGAMENTO
+          - DEFERIDO
+          - EMITIDO
+          - EM_ANALISE
+          - ENVIADO_AO_ESCRITORIO_NACIONAL
+          - ENVIADO_AO_SOLICITANTE
+          - INDEFERIDO
+          - RECEBIDA
+    title: StatusSolicitacao
