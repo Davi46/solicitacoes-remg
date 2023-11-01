@@ -11,6 +11,7 @@ public class Solicitante extends Membro {
     private String telefone;
     private String celular;
     private String funcao;
+    private String email;
 
     @Builder
     public Solicitante(int registro, String nome, GrupoEscoteiro grupoEscoteiro, String telefone, String celular, String funcao) {

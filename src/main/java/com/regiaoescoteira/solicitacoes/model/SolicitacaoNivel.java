@@ -20,7 +20,7 @@ public class SolicitacaoNivel extends Solicitacao {
     private File arquivoSolicitacao;
 
     @Builder
-    public SolicitacaoNivel(long identificador, UUID identificadorSolicitacao, TipoSolicitacaoEnum tipoSolicitacaoEnum, OffsetDateTime criacao, OffsetDateTime finalizado, String justificativa, List<StatusSolicitacao> historico) {
-        super(identificador, identificadorSolicitacao, tipoSolicitacaoEnum,criacao, finalizado, justificativa, historico);
+    public SolicitacaoNivel(long identificador, UUID identificadorSolicitacao, TipoSolicitacaoEnum tipoSolicitacaoEnum, OffsetDateTime criacao, OffsetDateTime finalizado, String justificativa, List<StatusSolicitacao> historico, StatusSolicitacao ultimoStatus) {
+        super(identificador, identificadorSolicitacao, tipoSolicitacaoEnum, criacao, finalizado, justificativa, historico, ultimoStatus);
     }
 }

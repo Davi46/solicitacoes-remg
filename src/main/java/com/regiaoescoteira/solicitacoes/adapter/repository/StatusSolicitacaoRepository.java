@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface StatusSolicitacaoRepository extends JpaRepository<StatusSolicitacaoEntity, UUID> {
-    List<StatusSolicitacaoEntity> getStatusSolicitacoesBySolicitacao(SolicitacaoEntity solicitacao);
+    List<StatusSolicitacaoEntity> getStatusSolicitacoesBySolicitacaoOrderByCriacao(SolicitacaoEntity solicitacao);
 }

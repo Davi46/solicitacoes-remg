@@ -18,8 +18,8 @@ public class SolicitacaoCondecoracao extends Solicitacao {
     private boolean estojo;
 
     @Builder
-    public SolicitacaoCondecoracao(long identificador, UUID identificadorSolicitacao, TipoSolicitacaoEnum tipoSolicitacaoEnum, OffsetDateTime criacao, OffsetDateTime finalizado, String justificativa, List<StatusSolicitacao> historico) {
-        super(identificador, identificadorSolicitacao, tipoSolicitacaoEnum, criacao, finalizado, justificativa, historico);
+    public SolicitacaoCondecoracao(long identificador, UUID identificadorSolicitacao, TipoSolicitacaoEnum tipoSolicitacaoEnum, OffsetDateTime criacao, OffsetDateTime finalizado, String justificativa, List<StatusSolicitacao> historico, StatusSolicitacao statusAtual) {
+        super(identificador, identificadorSolicitacao, tipoSolicitacaoEnum, criacao, finalizado, justificativa, historico, statusAtual);
     }
 
     @Override

@@ -21,17 +21,19 @@ public class Solicitacao {
     private OffsetDateTime finalizado;
     private String justificativa;
     private List<StatusSolicitacao> historicoSolicitacao;
+    private StatusSolicitacao statusAtual;
 
     @Override
     public String toString() {
         return "Solicitacao{" +
                 "identificador=" + identificador +
                 ", identificadorSolicitacao=" + identificadorSolicitacao +
-                ", tipoSolicitacaoEnum=" + tipoSolicitacaoEnum.getValue() +
+                ", tipoSolicitacaoEnum=" + tipoSolicitacaoEnum +
                 ", criacao=" + criacao +
                 ", finalizado=" + finalizado +
                 ", justificativa='" + justificativa + '\'' +
                 ", historicoSolicitacao=" + historicoSolicitacao +
+                ", statusAtual=" + statusAtual +
                 '}';
     }
 }

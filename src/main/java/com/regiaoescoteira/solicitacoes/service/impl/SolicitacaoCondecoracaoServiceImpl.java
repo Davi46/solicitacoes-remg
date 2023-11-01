@@ -135,10 +135,12 @@ public class SolicitacaoCondecoracaoServiceImpl implements SolicitacaoCondecorac
         solicitacaoMap.setJustificativa(solicitacaoCondecoracaoEntity.getSolicitacao().getJustificativa());
         solicitacaoMap.setIdentificadorSolicitacao(solicitacaoCondecoracaoEntity.getSolicitacao().getIdentificadorSolicitacao());
 
-        var historico = statusSolicitacaoRepository.getStatusSolicitacoesBySolicitacao(solicitacaoCondecoracaoEntity.getSolicitacao());
+        var historico = statusSolicitacaoRepository.getStatusSolicitacoesBySolicitacaoOrderByCriacao(solicitacaoCondecoracaoEntity.getSolicitacao());
 
         solicitacaoMap.setHistoricoSolicitacao(new ArrayList<>());
         historico.forEach(p -> solicitacaoMap.getHistoricoSolicitacao().add(statusSolicitacaoToModel(p)));
+
+        solicitacaoMap.setStatusAtual( solicitacaoMap.getHistoricoSolicitacao().get(0));
         return solicitacaoMap;
     }
 

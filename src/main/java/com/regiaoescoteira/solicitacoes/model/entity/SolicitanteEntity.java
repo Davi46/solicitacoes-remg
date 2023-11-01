@@ -1,6 +1,8 @@
 package com.regiaoescoteira.solicitacoes.model.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+
 import lombok.*;
 
 @Getter
@@ -18,4 +20,7 @@ public class SolicitanteEntity extends MembroBaseEntity{
 
     @Column(nullable=false, length = 20)
     private String celular;
+
+    @Column(nullable=false, length = 100)
+    private String email;
 }
